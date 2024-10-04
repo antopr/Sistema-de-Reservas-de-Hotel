@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-
-
 @Entity
 @Table(name = "pasajeros")
 public class Pasajero implements Serializable {
@@ -137,8 +135,6 @@ public class Pasajero implements Serializable {
                 ", Ciudad: " + ciudad + ", Pais: " + pais + '}';
     }
     
-    
-
    
     
 }
