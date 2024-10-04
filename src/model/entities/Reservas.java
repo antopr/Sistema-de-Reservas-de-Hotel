@@ -1,9 +1,25 @@
-package modelo;
+package model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Reservas {
+
+@Entity
+@Table(name = "reserva")
+public class Reservas implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int idReserva;
+    
     private LocalDate fechaCheckIn;
     private LocalDate fechaCheckOut;
     private List<Habitacion> habitaciones;
@@ -19,6 +35,14 @@ public class Reservas {
         this.habitaciones = habitaciones;
         this.pasajero = pasajero;
         this.senia = senia;
+    }
+
+    public int getIdReserva() {
+        return idReserva;
+    }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
     }
 
     public LocalDate getFechaCheckIn() {
@@ -63,7 +87,8 @@ public class Reservas {
 
     @Override
     public String toString() {
-        return "Reservas{" + "fechaCheckIn=" + fechaCheckIn + ", fechaCheckOut=" + fechaCheckOut + ", habitaciones=" + habitaciones + ", pasajero=" + pasajero + ", senia=" + senia + '}';
+        return "Reservas{" + "fechaCheckIn=" + fechaCheckIn + ", fechaCheckOut=" + fechaCheckOut + 
+                ", habitaciones=" + habitaciones + ", pasajero=" + pasajero + ", senia=" + senia + '}';
     }
     
     

@@ -1,10 +1,35 @@
-package modelo;
+package model.entities;
 
-public class Habitacion {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "habitaciones")
+public class Habitacion implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int idHabitacion;
+    
+    @Column(name = "numero de habitacion")
     private String numero;
+    
+    @Column(name = "piso")
     private String piso;
+    
+    @Column(name = "categoria")
     private String categoria;
+    
+    @Column(name = "descripcion")
     private String descripcion;
+    
+    @Column(name = "precio")
     private float precio;
 
     public Habitacion() {
@@ -16,6 +41,14 @@ public class Habitacion {
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.precio = precio;
+    }
+
+    public int getIdHabitacion() {
+        return idHabitacion;
+    }
+
+    public void setIdHabitacion(int idHabitacion) {
+        this.idHabitacion = idHabitacion;
     }
 
     public String getNumero() {
@@ -56,6 +89,14 @@ public class Habitacion {
 
     public void setPrecio(float precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Habitacion {" + "ID Habitacion: " + idHabitacion +
+                ", numero: " + numero + ", piso: " + piso + 
+                ", categoria: " + categoria + ", descripcion: " + descripcion + 
+                ", precio: " + precio + '}';
     }
     
     
