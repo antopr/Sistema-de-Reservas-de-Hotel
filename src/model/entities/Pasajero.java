@@ -1,6 +1,7 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "pasajeros")
+@Table(name = "pasajero")
 public class Pasajero implements Serializable {
     
     @Id
@@ -135,6 +136,19 @@ public class Pasajero implements Serializable {
                 ", Ciudad: " + ciudad + ", Pais: " + pais + '}';
     }
     
-   
+    @Override
+    public int hashCode() {
+        return Objects.hash(dni, nombre, apellido);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Pasajero other = (Pasajero) obj;
+        return dni == other.dni && 
+           Objects.equals(nombre, other.nombre) && 
+           Objects.equals(apellido, other.apellido);
+    }
     
 }

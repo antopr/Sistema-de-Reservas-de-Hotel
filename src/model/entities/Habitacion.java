@@ -1,15 +1,18 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "habitaciones")
+@Table(name = "habitacion")
 public class Habitacion implements Serializable {
     
     @Id
@@ -17,7 +20,7 @@ public class Habitacion implements Serializable {
     @Column(name = "id")
     private int idHabitacion;
     
-    @Column(name = "numero de habitacion")
+    @Column(name = "numeroDeHabitacion")
     private String numero;
     
     @Column(name = "piso")
@@ -32,6 +35,9 @@ public class Habitacion implements Serializable {
     @Column(name = "precio")
     private float precio;
 
+    @ManyToMany(mappedBy = "habitaciones")
+    private List<Reservas> reservas;
+    
     public Habitacion() {
     }
 
@@ -91,6 +97,14 @@ public class Habitacion implements Serializable {
         this.precio = precio;
     }
 
+    public List<Reservas> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reservas> reservas) {
+        this.reservas = reservas;
+    }
+    
     @Override
     public String toString() {
         return "Habitacion {" + "ID Habitacion: " + idHabitacion +
@@ -99,5 +113,18 @@ public class Habitacion implements Serializable {
                 ", precio: " + precio + '}';
     }
     
+    @Override
+    public int hashCode() {
+        return Objects.hash(numero, piso);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Habitacion that = (Habitacion) o;
+        return Objects.equals(numero, that.numero) &&
+               Objects.equals(piso, that.piso);
+    }
     
 }

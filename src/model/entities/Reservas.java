@@ -3,11 +3,16 @@ package model.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -20,16 +25,35 @@ public class Reservas implements Serializable{
     @Column(name = "id")
     private int idReserva;
     
+    @Column(name = "fechaReserva")
+    private LocalDate fechaReserva;
+    
+    @Column(name = "fechaDeIngreso")
     private LocalDate fechaCheckIn;
+    
+    @Column(name = "fechaDeSalida")
     private LocalDate fechaCheckOut;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "reservas_Habitaciones",
+            joinColumns = @JoinColumn(name = "reserva_id"),
+            inverseJoinColumns = @JoinColumn(name = "habitacion_id")
+    
+    )
     private List<Habitacion> habitaciones;
+    
+    @ManyToOne
+    @JoinColumn(name = "pasajeroDocumento")
     private Pasajero pasajero;
+    
     private String senia;
 
     public Reservas() {
     }
 
-    public Reservas(LocalDate fechaCheckIn, LocalDate fechaCheckOut, List<Habitacion> habitaciones, Pasajero pasajero, String senia) {
+    public Reservas(LocalDate fechaReserva, LocalDate fechaCheckIn, LocalDate fechaCheckOut, List<Habitacion> habitaciones, Pasajero pasajero, String senia) {
+        this.fechaReserva = fechaReserva;
         this.fechaCheckIn = fechaCheckIn;
         this.fechaCheckOut = fechaCheckOut;
         this.habitaciones = habitaciones;
@@ -43,6 +67,14 @@ public class Reservas implements Serializable{
 
     public void setIdReserva(int idReserva) {
         this.idReserva = idReserva;
+    }
+
+    public LocalDate getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(LocalDate fechaReserva) {
+        this.fechaReserva = fechaReserva;
     }
 
     public LocalDate getFechaCheckIn() {
@@ -91,7 +123,19 @@ public class Reservas implements Serializable{
                 ", habitaciones=" + habitaciones + ", pasajero=" + pasajero + ", senia=" + senia + '}';
     }
     
+    @Override
+    public int hashCode() {
+        return Objects.hash(fechaReserva, pasajero);
+    }
     
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservas reservas = (Reservas) o;
+        return Objects.equals(fechaReserva, reservas.fechaReserva) &&
+           Objects.equals(pasajero, reservas.pasajero);
+    }
    
    
 }

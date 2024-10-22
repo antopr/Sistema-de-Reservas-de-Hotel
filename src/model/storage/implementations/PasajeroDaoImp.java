@@ -3,35 +3,99 @@ package model.storage.implementations;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import model.entities.Pasajero;
+import model.exceptions.NotFoundException;
 import model.storage.Dao;
 
-public class PasajeroDaoImp implements Dao<Pasajero> {
+public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
     
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("resarvasHotelPU");
-    EntityManager em = emf.createEntityManager();
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("resarvasHotelPU");
+    private EntityManager getEntityManager(){
+        return emf.createEntityManager();
+    } 
 
+    // Insertar pasajero (ok)
     @Override
-    public void insertar(Pasajero pasajero) {
-        em.getTransaction().begin();
-        em.persist(pasajero);
-        em.getTransaction().commit();
+    public void insertar(Pasajero pasajero) throws Exception {
+        EntityManager em = getEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.persist(pasajero);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback(); 
+            throw e;
+        } finally {
+            em.close();
+        }
+        
     }
-
-    @Override
-    public void eliminar(Pasajero entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    // obtener pasajero por dni (ok)
+    @Override 
+    public Pasajero obtenerPorId(Integer documento) throws NotFoundException {
+        EntityManager em = getEntityManager();
+        try {
+        Pasajero pasajero = em.createQuery("SELECT p FROM Pasajero p WHERE p.dni = :dni", Pasajero.class)
+                              .setParameter("dni", documento)
+                              .getSingleResult();
+        return pasajero;
+        } catch (NoResultException e) {
+            throw new NotFoundException("Persona con documento: " + documento + " no encontrada");
+        } finally {
+            em.close();
+        }
     }
-
+    
+    // obteber todos los pasajeros
     @Override
-    public void modificar(Pasajero entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Pasajero> obtenerTodos(){
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("FROM Pasajero", Pasajero.class).getResultList();
+        } finally {
+            em.close();
+        }
+        
     }
-
+    
+    // modificar pasajeros 
     @Override
-    public List<Pasajero> seleccionar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void modificar(Pasajero pasajero) throws Exception {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(pasajero);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();  
+        }
+    }
+    
+    // eliminar pasajeros 
+    @Override
+    public void eliminar(Integer documento) throws Exception {
+        EntityManager em = getEntityManager();
+        try {          
+            em.getTransaction().begin();
+            int deletedPasajero = em.createQuery("DELETE FROM Pasajero p WHERE p.dni = :dni")
+                                 .setParameter("dni", documento)
+                                 .executeUpdate();           
+            if (deletedPasajero == 0) {
+                throw new NotFoundException("Persona con documento: " + documento + " no encontrada");
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
     }
     
 }
