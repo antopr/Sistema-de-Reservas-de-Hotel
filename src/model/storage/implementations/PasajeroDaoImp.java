@@ -35,7 +35,7 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
     
     // obtener pasajero por dni (ok)
     @Override 
-    public Pasajero obtenerPorId(Integer documento) throws NotFoundException {
+    public Pasajero obtenerPor(Integer documento) throws NotFoundException {
         EntityManager em = getEntityManager();
         try {
         Pasajero pasajero = em.createQuery("SELECT p FROM Pasajero p WHERE p.dni = :dni", Pasajero.class)
@@ -63,10 +63,16 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
     
     // modificar pasajeros 
     @Override
-    public void modificar(Pasajero pasajero) throws Exception {
+    public void modificar(Pasajero pasajero) throws NotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
+            /*
+            Pasajero existente = em.find(Pasajero.class, pasajero.getIdPasajero());
+            if (existente == null) {
+                throw new NotFoundException("Pasajero con ID: " + pasajero.getIdPasajero() + " no encontrado.");
+            }
+            */
             em.merge(pasajero);
             em.getTransaction().commit();
         } catch (Exception e) {

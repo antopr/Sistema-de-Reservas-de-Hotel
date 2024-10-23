@@ -34,18 +34,20 @@ public class Reservas implements Serializable{
     @Column(name = "fechaDeSalida")
     private LocalDate fechaCheckOut;
     
+    //relecion con pasajero 
+    @ManyToOne
+    @JoinColumn(name = "idPasajero") // fk en tabla reserva
+    private Pasajero pasajero;
+    
+    
     @ManyToMany
     @JoinTable(
-            name = "reservas_Habitaciones",
-            joinColumns = @JoinColumn(name = "reserva_id"),
-            inverseJoinColumns = @JoinColumn(name = "habitacion_id")
+            name = "reservasHabitaciones",
+            joinColumns = @JoinColumn(name = "reservaId"),
+            inverseJoinColumns = @JoinColumn(name = "habitacionId")
     
     )
     private List<Habitacion> habitaciones;
-    
-    @ManyToOne
-    @JoinColumn(name = "pasajeroDocumento")
-    private Pasajero pasajero;
     
     private String senia;
 

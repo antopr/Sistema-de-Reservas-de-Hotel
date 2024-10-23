@@ -35,6 +35,7 @@ public class Habitacion implements Serializable {
     @Column(name = "precio")
     private float precio;
 
+    // Relación inversa con Reservas (ManyToMany)
     @ManyToMany(mappedBy = "habitaciones")
     private List<Reservas> reservas;
     
