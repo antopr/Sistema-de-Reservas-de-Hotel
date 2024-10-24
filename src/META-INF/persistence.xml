@@ -15,7 +15,6 @@
       <property name="eclipselink.ddl-generation.output-mode" value="database"/>
       <property name="eclipselink.create-ddl-jdbc-file-name" value="createDDL.sql"/>
       <property name="eclipselink.jdbc.foreign-key-constraint" value="true"/>
-
     </properties>
   </persistence-unit>
 </persistence>

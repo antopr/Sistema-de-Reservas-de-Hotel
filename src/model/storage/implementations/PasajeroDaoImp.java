@@ -23,6 +23,10 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
         try{
             em.getTransaction().begin();
             em.persist(pasajero);
+            em.flush();
+            em.refresh(pasajero);
+            System.out.println("ID generado: " + pasajero.getIdPasajero());
+
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback(); 
@@ -66,13 +70,7 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
     public void modificar(Pasajero pasajero) throws NotFoundException {
         EntityManager em = getEntityManager();
         try {
-            em.getTransaction().begin();
-            /*
-            Pasajero existente = em.find(Pasajero.class, pasajero.getIdPasajero());
-            if (existente == null) {
-                throw new NotFoundException("Pasajero con ID: " + pasajero.getIdPasajero() + " no encontrado.");
-            }
-            */
+            em.getTransaction().begin();         
             em.merge(pasajero);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -103,5 +101,20 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
             em.close();
         }
     }
+
+    @Override
+    public Pasajero obtenerPorId(Integer id) throws NotFoundException {
+        EntityManager em = getEntityManager();
+        try {
+            Pasajero pasajero = em.find(Pasajero.class, id);
+            if (pasajero == null) {
+                throw new NotFoundException("Persona con id: " + id + " no encontrada.s");
+            }
+            return pasajero;
+        } finally {
+            em.close();
+        }
+}
+
     
 }

@@ -8,6 +8,8 @@ public interface Dao<T,ID> {
     
     public abstract T obtenerPor(ID id) throws NotFoundException;
     
+    public abstract T obtenerPorId(ID id) throws NotFoundException;
+    
     public abstract List<T> obtenerTodos();
     
     public abstract void modificar(T entidad) throws NotFoundException;
