@@ -53,12 +53,12 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
         }
     }
     
-    // obteber todos los pasajeros
+    // obteber todos los pasajeros 
     @Override
     public List<Pasajero> obtenerTodos(){
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("FROM Pasajero", Pasajero.class).getResultList();
+            return em.createQuery("SELECT p FROM Pasajero p", Pasajero.class).getResultList();
         } finally {
             em.close();
         }

@@ -1,18 +1,25 @@
 package vistas;
 
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 import model.entities.Pasajero;
 import model.storage.implementations.PasajeroDaoImp;
 
 public class PrincipalPanel extends javax.swing.JFrame {
-
+    
+    private DefaultTableModel tableModel;
+    
     public PrincipalPanel() {
         initComponents();
         //this.setSize(600, 700);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        initTable();
+        cargarPasajeros();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,6 +34,8 @@ public class PrincipalPanel extends javax.swing.JFrame {
         VerPasajeros = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         listadoPasajeros = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablePasajeros = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -87,7 +96,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSistemaLayout.createSequentialGroup()
-                .addContainerGap(178, Short.MAX_VALUE)
+                .addContainerGap(183, Short.MAX_VALUE)
                 .addGroup(InicioSistemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSistemaLayout.createSequentialGroup()
                         .addComponent(btnPasajeros)
@@ -112,25 +121,41 @@ public class PrincipalPanel extends javax.swing.JFrame {
                     .addComponent(btnHabitaciones)
                     .addComponent(btnPasajeros)
                     .addComponent(btnReservas))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
 
         PanelCambiante.add(InicioSistema, "card2");
 
-        jLabel3.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
         jLabel3.setText("Administración de Pasajros");
 
         listadoPasajeros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        tablePasajeros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tablePasajeros);
 
         javax.swing.GroupLayout listadoPasajerosLayout = new javax.swing.GroupLayout(listadoPasajeros);
         listadoPasajeros.setLayout(listadoPasajerosLayout);
         listadoPasajerosLayout.setHorizontalGroup(
             listadoPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listadoPasajerosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addContainerGap())
         );
         listadoPasajerosLayout.setVerticalGroup(
             listadoPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 377, Short.MAX_VALUE)
+            .addGroup(listadoPasajerosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         jLabel4.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
@@ -157,11 +182,11 @@ public class PrincipalPanel extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
+            .addGap(0, 267, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 342, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         btnSalir.setText("Salir");
@@ -181,20 +206,20 @@ public class PrincipalPanel extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(VerPasajerosLayout.createSequentialGroup()
                         .addComponent(listadoPasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(12, 12, 12)
                         .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSalir)
                             .addGroup(VerPasajerosLayout.createSequentialGroup()
                                 .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(31, 31, 31)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnSalir)))
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel3))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         VerPasajerosLayout.setVerticalGroup(
             VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,23 +229,25 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listadoPasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(listadoPasajeros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(VerPasajerosLayout.createSequentialGroup()
-                        .addComponent(btnIngresar)
+                        .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(VerPasajerosLayout.createSequentialGroup()
+                                .addComponent(btnIngresar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnEliminar)
+                                .addGap(13, 13, 13)
+                                .addComponent(btnGuardar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancelar)
+                                .addGap(0, 222, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar)
-                        .addGap(13, 13, 13)
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancelar))
-                    .addGroup(VerPasajerosLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         PanelCambiante.add(VerPasajeros, "card3");
@@ -307,7 +334,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                                 .addComponent(btnBorrarPasajero)
                                 .addGap(29, 29, 29)
                                 .addComponent(btnCancelarPasajero)))))
-                .addGap(245, 346, Short.MAX_VALUE))
+                .addGap(245, 351, Short.MAX_VALUE))
         );
         IngresarPasajeroLayout.setVerticalGroup(
             IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +352,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 .addGroup(IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -349,7 +376,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 .addGroup(IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarPasajero)
                     .addComponent(btnBorrarPasajero)
@@ -462,7 +489,9 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel listadoPasajeros;
+    private javax.swing.JTable tablePasajeros;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDireccion;
@@ -490,6 +519,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
             pasajero.setPais(txtPais.getText());
             pasajero.setTelefono(txtTelefono.getText());
 
+            //inserto pasajero 
             pasajeroDao.insertar(pasajero);
             
             javax.swing.JOptionPane.showMessageDialog(this, "Pasajero guardado correctamente.");
@@ -499,11 +529,6 @@ public class PrincipalPanel extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el pasajero. Intente nuevamente.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         
-        /*
-        // Insertar el pasajero usando el DAO
-        PasajeroDaoImp pasajeroDao = new PasajeroDaoImp();
-        pasajeroDao.insertar(pasajero);
-*/
     }
 
     private void limpiarCampos() {
@@ -516,4 +541,28 @@ public class PrincipalPanel extends javax.swing.JFrame {
         txtPais.setText("");
         txtTelefono.setText("");
     }
+
+    private void initTable() {
+        String[] columnNames = {"Id", "Nombre", "Apellido", "Documento"};
+        tableModel = new DefaultTableModel(columnNames, 0);
+        tablePasajeros.setModel(tableModel);
+    }
+
+    private void cargarPasajeros() {
+        
+        tableModel.setRowCount(0);  // limpia datos
+        PasajeroDaoImp pasajeroDao = new PasajeroDaoImp();
+        List<Pasajero> pasajeros = pasajeroDao.obtenerTodos();  
+        
+        for (Pasajero pasajero : pasajeros) {
+            Object[] row = {
+                pasajero.getIdPasajero(),
+                pasajero.getNombre(),
+                pasajero.getApellido(),
+                pasajero.getDni()
+            };
+            tableModel.addRow(row);
+        }
+    }
+
 }
