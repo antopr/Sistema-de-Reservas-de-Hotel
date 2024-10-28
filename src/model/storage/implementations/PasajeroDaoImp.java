@@ -1,6 +1,8 @@
 package model.storage.implementations;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -70,12 +72,32 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
     public void modificar(Pasajero pasajero) throws NotFoundException {
         EntityManager em = getEntityManager();
         try {
-            em.getTransaction().begin();         
-            em.merge(pasajero);
+            em.getTransaction().begin();
+            
+            System.out.println("ID recibido para modificar en metodo modificar: " + pasajero.getIdPasajero());
+           
+            Pasajero pasajeroExistente = em.find(Pasajero.class, pasajero.getIdPasajero()); 
+            System.out.println("ID recibido para modificar: " + pasajero.getIdPasajero());
+            if (pasajeroExistente == null) {
+                throw new Exception("Pasajero no encontrado para actualizar");                
+            } 
+            
+            //actualizo los campos
+            pasajeroExistente.setNombre(pasajero.getNombre());
+            pasajeroExistente.setApellido(pasajero.getApellido());
+            pasajeroExistente.setEmail(pasajero.getEmail());
+            pasajeroExistente.setDni(pasajero.getDni());
+            pasajeroExistente.setTelefono(pasajero.getTelefono());
+            pasajeroExistente.setDireccion(pasajero.getDireccion());
+            pasajeroExistente.setCiudad(pasajero.getCiudad());
+            pasajeroExistente.setPais(pasajero.getPais());
+            
             em.getTransaction().commit();
+            
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw e;
+            Logger.getLogger(PasajeroDaoImp.class.getName()).log(Level.SEVERE, null, e);
+            throw new NotFoundException("Error al modificar el pasajero: " + e.getMessage());
         } finally {
             em.close();  
         }
@@ -101,7 +123,7 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
             em.close();
         }
     }
-
+    // ok
     @Override
     public Pasajero obtenerPorId(Integer id) throws NotFoundException {
         EntityManager em = getEntityManager();
@@ -114,7 +136,7 @@ public class PasajeroDaoImp implements Dao<Pasajero, Integer> {
         } finally {
             em.close();
         }
-}
+    }
 
     
 }
