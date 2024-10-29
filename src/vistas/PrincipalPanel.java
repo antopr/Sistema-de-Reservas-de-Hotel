@@ -595,6 +595,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private void btnGuardarPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPasajeroActionPerformed
         guardarPasajero();
         limpiarCampos();
+        actualizarTablaPasajeros();
     }//GEN-LAST:event_btnGuardarPasajeroActionPerformed
 
     private void btnBorrarPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPasajeroActionPerformed
@@ -872,6 +873,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
         // obtengo datos de la tabla
         //int idPasajero = (int) tablePasajeros.getValueAt(filaSeleccionada, 0); //por id
         int dniPasajero = (int) tablePasajeros.getValueAt(filaSeleccionada, 3);
+        
         //mensaje de confirmacion
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este pasajero?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 
@@ -884,6 +886,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
 
                 // Actualizar la tabla después de eliminar
                 actualizarTablaPasajeros();
+                //actualizarTablaDatosPasajeros();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error al eliminar el pasajero: " + ex.getMessage());
             }
@@ -919,6 +922,6 @@ public class PrincipalPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar la tabla: " + e.getMessage());
         }
     }
-
+    
 
 }

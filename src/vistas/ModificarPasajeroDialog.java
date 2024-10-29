@@ -1,5 +1,6 @@
 package vistas;
 
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -7,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.entities.Pasajero;
 import model.storage.implementations.PasajeroDaoImp;
 
@@ -104,7 +106,9 @@ public class ModificarPasajeroDialog extends JDialog {
 
         //guardar los cambios en la base de datos
         pasajeroDao.modificar(pasajero);
-
+        
+        //actualizarPasajero();
+        
         JOptionPane.showMessageDialog(this, "Los cambios se han guardado exitosamente.");
         
         //cierra
@@ -122,4 +126,6 @@ public class ModificarPasajeroDialog extends JDialog {
     }
 
     //actualizar datos dsp de modificar en tableDatosPasajeros
+
+    
 }
