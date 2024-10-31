@@ -71,27 +71,6 @@ public class PrincipalPanel extends javax.swing.JFrame {
         btnGuardarPasajero = new javax.swing.JButton();
         btnBorrarPasajero = new javax.swing.JButton();
         btnCancelarPasajero = new javax.swing.JButton();
-        ModificarPasajero = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        txtNombreModificado = new javax.swing.JTextField();
-        txtApellidoModificado = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        txtDocumentoModificado = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        txtEmailModificado = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        txtTelefonoModificado = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        txtDireccionModificado = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
-        txtCiudadModificado = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
-        txtPaisModificado = new javax.swing.JTextField();
-        btnGuardarModificado = new javax.swing.JButton();
-        btnBorrarModificado = new javax.swing.JButton();
-        btnCancelarModificado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -274,7 +253,6 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(2, 2, 2)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VerPasajerosLayout.createSequentialGroup()
                         .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -430,151 +408,6 @@ public class PrincipalPanel extends javax.swing.JFrame {
 
         PanelCambiante.add(IngresarPasajero, "card4");
 
-        jLabel15.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
-        jLabel15.setText("Modificar Pasajero");
-
-        jLabel16.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel16.setText("Nombre");
-
-        jLabel17.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel17.setText("Apellido");
-
-        jLabel18.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel18.setText("Email");
-
-        jLabel19.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel19.setText("Documento");
-
-        jLabel20.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel20.setText("Telefono");
-
-        jLabel21.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel21.setText("Direccion");
-
-        jLabel22.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel22.setText("Ciudad");
-
-        jLabel23.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
-        jLabel23.setText("País");
-
-        btnGuardarModificado.setText("Guardar");
-
-        btnBorrarModificado.setText("Borrar");
-        btnBorrarModificado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarModificadoActionPerformed(evt);
-            }
-        });
-
-        btnCancelarModificado.setText("Cancelar");
-        btnCancelarModificado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarModificadoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ModificarPasajeroLayout = new javax.swing.GroupLayout(ModificarPasajero);
-        ModificarPasajero.setLayout(ModificarPasajeroLayout);
-        ModificarPasajeroLayout.setHorizontalGroup(
-            ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ModificarPasajeroLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ModificarPasajeroLayout.createSequentialGroup()
-                            .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel16))
-                                .addComponent(jLabel18))
-                            .addGap(40, 40, 40)
-                            .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtNombreModificado, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtApellidoModificado, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEmailModificado, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(ModificarPasajeroLayout.createSequentialGroup()
-                            .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(ModificarPasajeroLayout.createSequentialGroup()
-                                                .addComponent(jLabel19)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModificarPasajeroLayout.createSequentialGroup()
-                                                .addComponent(jLabel20)
-                                                .addGap(39, 39, 39)))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModificarPasajeroLayout.createSequentialGroup()
-                                            .addComponent(jLabel21)
-                                            .addGap(34, 34, 34)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModificarPasajeroLayout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addGap(49, 49, 49)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModificarPasajeroLayout.createSequentialGroup()
-                                    .addComponent(jLabel23)
-                                    .addGap(69, 69, 69)))
-                            .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(ModificarPasajeroLayout.createSequentialGroup()
-                                    .addComponent(btnGuardarModificado)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnBorrarModificado)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnCancelarModificado))
-                                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDocumentoModificado)
-                                    .addComponent(txtTelefonoModificado)
-                                    .addComponent(txtDireccionModificado)
-                                    .addComponent(txtCiudadModificado)
-                                    .addComponent(txtPaisModificado, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))))))
-                .addContainerGap(487, Short.MAX_VALUE))
-        );
-        ModificarPasajeroLayout.setVerticalGroup(
-            ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ModificarPasajeroLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel15)
-                .addGap(45, 45, 45)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(txtNombreModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtApellidoModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(txtEmailModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(txtDocumentoModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(txtTelefonoModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(txtDireccionModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(txtCiudadModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPaisModificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addGap(75, 75, 75)
-                .addGroup(ModificarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardarModificado)
-                    .addComponent(btnBorrarModificado)
-                    .addComponent(btnCancelarModificado))
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
-
-        PanelCambiante.add(ModificarPasajero, "card5");
-
         getContentPane().add(PanelCambiante, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -636,15 +469,6 @@ public class PrincipalPanel extends javax.swing.JFrame {
         java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
         cardLayout.show(PanelCambiante, "card5"); //  Modificar Pasajeros */
     }//GEN-LAST:event_btnModificarActionPerformed
-//PANEL MODIFICAR PASAJERO
-    private void btnCancelarModificadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarModificadoActionPerformed
-        java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
-        cardLayout.show(PanelCambiante, "card3"); //  card3 VerPasajeros
-    }//GEN-LAST:event_btnCancelarModificadoActionPerformed
-
-    private void btnBorrarModificadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarModificadoActionPerformed
-        limpiarCampos();
-    }//GEN-LAST:event_btnBorrarModificadoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarPasajero();
@@ -686,15 +510,11 @@ public class PrincipalPanel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel IngresarPasajero;
     private javax.swing.JPanel InicioSistema;
-    private javax.swing.JPanel ModificarPasajero;
     private javax.swing.JPanel PanelCambiante;
     private javax.swing.JPanel VerPasajeros;
-    private javax.swing.JButton btnBorrarModificado;
     private javax.swing.JButton btnBorrarPasajero;
-    private javax.swing.JButton btnCancelarModificado;
     private javax.swing.JButton btnCancelarPasajero;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardarModificado;
     private javax.swing.JButton btnGuardarPasajero;
     private javax.swing.JButton btnHabitaciones;
     private javax.swing.JButton btnIngresar;
@@ -708,16 +528,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -733,21 +544,13 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private javax.swing.JTable tableDatosPasajero;
     private javax.swing.JTable tablePasajeros;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtApellidoModificado;
     private javax.swing.JTextField txtCiudad;
-    private javax.swing.JTextField txtCiudadModificado;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccionModificado;
     private javax.swing.JTextField txtDocumento;
-    private javax.swing.JTextField txtDocumentoModificado;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmailModificado;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombreModificado;
     private javax.swing.JTextField txtPais;
-    private javax.swing.JTextField txtPaisModificado;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTelefonoModificado;
     // End of variables declaration//GEN-END:variables
 
     private void guardarPasajero() { 

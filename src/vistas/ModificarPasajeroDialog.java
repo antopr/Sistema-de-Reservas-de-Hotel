@@ -1,6 +1,5 @@
 package vistas;
 
-import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -8,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 import model.entities.Pasajero;
 import model.storage.implementations.PasajeroDaoImp;
 
@@ -45,7 +43,7 @@ public class ModificarPasajeroDialog extends JDialog {
         // Ajustar el tamaño y posición del diálogo
         pack();
         setLocationRelativeTo(parent);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); //para cerrar correctamente
     }
     
     private void initComponents() {

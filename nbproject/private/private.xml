@@ -12,8 +12,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/antop/OneDrive/Documents/NetBeansProjects/sistemaResarvasHotel/src/vistas/PrincipalPanel.java</file>
-            <file>file:/C:/Users/antop/OneDrive/Documents/NetBeansProjects/sistemaResarvasHotel/src/vistas/ModificarPasajeroDialog.java</file>
+            <file>file:/C:/Users/antop/OneDrive/Documents/NetBeansProjects/sistemaResarvasHotel/src/model/storage/implementations/HabitacionesDaoImp.java</file>
             <file>file:/C:/Users/antop/OneDrive/Documents/NetBeansProjects/sistemaResarvasHotel/src/model/storage/implementations/PasajeroDaoImp.java</file>
         </group>
     </open-files>
