@@ -29,6 +29,9 @@ public class Habitacion implements Serializable {
     @Column(name = "categoria")
     private String categoria;
     
+    @Column (name = "configuracion")
+    private String configuracion;
+    
     @Column(name = "descripcion")
     private String descripcion;
     
@@ -42,10 +45,11 @@ public class Habitacion implements Serializable {
     public Habitacion() {
     }
 
-    public Habitacion(String numero, String piso, String categoria, String descripcion, float precio) {
+    public Habitacion(String numero, String piso, String categoria, String configuracion, String descripcion, float precio) {
         this.numero = numero;
         this.piso = piso;
         this.categoria = categoria;
+        this.configuracion = configuracion;
         this.descripcion = descripcion;
         this.precio = precio;
     }
@@ -82,6 +86,14 @@ public class Habitacion implements Serializable {
         this.categoria = categoria;
     }
 
+    public String getConfiguracion() {
+        return configuracion;
+    }
+
+    public void setConfiguracion(String configuracion) {
+        this.configuracion = configuracion;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }

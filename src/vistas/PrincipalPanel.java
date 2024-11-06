@@ -4,14 +4,18 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.entities.Habitacion;
 import model.entities.Pasajero;
 import model.exceptions.NotFoundException;
+import model.storage.implementations.HabitacionesDaoImp;
 import model.storage.implementations.PasajeroDaoImp;
 
 public class PrincipalPanel extends javax.swing.JFrame {
     
     private DefaultTableModel tableModel;
     private int pasajeroSeleccionadoId = -1;
+    private DefaultTableModel tableModelHab;
+    private int habitacionSelectedId = -1;
     
     public PrincipalPanel() {
         initComponents();
@@ -20,10 +24,11 @@ public class PrincipalPanel extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         initTable();
+        initTableHab();
         initTableDatos();
         cargarPasajeros();
     }
-    
+    //************ Ver final para el num de card en initComponents ***********
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,6 +76,35 @@ public class PrincipalPanel extends javax.swing.JFrame {
         btnGuardarPasajero = new javax.swing.JButton();
         btnBorrarPasajero = new javax.swing.JButton();
         btnCancelarPasajero = new javax.swing.JButton();
+        VerHabitaciones = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnAgregarHab = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaHab = new javax.swing.JTable();
+        btnSalirHab = new javax.swing.JButton();
+        btnModificarHab = new javax.swing.JButton();
+        btnEliminarHab = new javax.swing.JButton();
+        IngresarHabitacion = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtNumHab = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txtPisoHab = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        cmbCategoriaHab = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txaDescripcionHab = new javax.swing.JTextArea();
+        jLabel21 = new javax.swing.JLabel();
+        txtPrecioHab = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        cmbConfiguracionHab = new javax.swing.JComboBox<>();
+        btnGuardarHab = new javax.swing.JButton();
+        btnBorrarHab = new javax.swing.JButton();
+        btnCancelarHab = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +117,11 @@ public class PrincipalPanel extends javax.swing.JFrame {
         jLabel2.setText("Sistema Reservas Hotel");
 
         btnHabitaciones.setText("Habitaciones");
+        btnHabitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHabitacionesActionPerformed(evt);
+            }
+        });
 
         btnPasajeros.setText("Pasajeros");
         btnPasajeros.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +131,11 @@ public class PrincipalPanel extends javax.swing.JFrame {
         });
 
         btnReservas.setText("Reservas");
+        btnReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout InicioSistemaLayout = new javax.swing.GroupLayout(InicioSistema);
         InicioSistema.setLayout(InicioSistemaLayout);
@@ -112,7 +156,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                         .addComponent(btnHabitaciones)
                         .addGap(70, 70, 70)
                         .addComponent(btnReservas)))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         InicioSistemaLayout.setVerticalGroup(
             InicioSistemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +170,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                     .addComponent(btnHabitaciones)
                     .addComponent(btnPasajeros)
                     .addComponent(btnReservas))
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
 
         PanelCambiante.add(InicioSistema, "card2");
@@ -225,7 +269,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
             .addGroup(VerPasajerosLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(VerPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VerPasajerosLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(256, 256, 256)
@@ -269,7 +313,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnSalir))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         PanelCambiante.add(VerPasajeros, "card3");
@@ -356,7 +400,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                                 .addComponent(btnBorrarPasajero)
                                 .addGap(29, 29, 29)
                                 .addComponent(btnCancelarPasajero)))))
-                .addGap(245, 432, Short.MAX_VALUE))
+                .addGap(245, 384, Short.MAX_VALUE))
         );
         IngresarPasajeroLayout.setVerticalGroup(
             IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +442,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 .addGroup(IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(IngresarPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarPasajero)
                     .addComponent(btnBorrarPasajero)
@@ -408,11 +452,232 @@ public class PrincipalPanel extends javax.swing.JFrame {
 
         PanelCambiante.add(IngresarPasajero, "card4");
 
+        jLabel15.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
+        jLabel15.setText("Administración de Habitaciones");
+
+        btnAgregarHab.setText("Agregar Habitación");
+        btnAgregarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarHabActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jScrollPane4.setViewportView(tablaHab);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
+        );
+
+        btnSalirHab.setText("Salir");
+        btnSalirHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirHabActionPerformed(evt);
+            }
+        });
+
+        btnModificarHab.setText("Modificar");
+        btnModificarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarHabActionPerformed(evt);
+            }
+        });
+
+        btnEliminarHab.setText("Eliminar");
+        btnEliminarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarHabActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout VerHabitacionesLayout = new javax.swing.GroupLayout(VerHabitaciones);
+        VerHabitaciones.setLayout(VerHabitacionesLayout);
+        VerHabitacionesLayout.setHorizontalGroup(
+            VerHabitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VerHabitacionesLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(VerHabitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(VerHabitacionesLayout.createSequentialGroup()
+                        .addComponent(btnAgregarHab)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificarHab)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarHab)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalirHab))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        VerHabitacionesLayout.setVerticalGroup(
+            VerHabitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VerHabitacionesLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(VerHabitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarHab)
+                    .addComponent(btnModificarHab)
+                    .addComponent(btnEliminarHab)
+                    .addComponent(btnSalirHab))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        PanelCambiante.add(VerHabitaciones, "card5");
+
+        jLabel16.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 14)); // NOI18N
+        jLabel16.setText("Agregar una nueva habitación");
+
+        jLabel17.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
+        jLabel17.setText("N° de Habitación");
+
+        jLabel18.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
+        jLabel18.setText("Piso");
+
+        jLabel19.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
+        jLabel19.setText("Categoría");
+
+        cmbCategoriaHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Standar", "Superior", "Lujo" }));
+
+        jLabel20.setText("Descripción");
+
+        txaDescripcionHab.setColumns(20);
+        txaDescripcionHab.setRows(5);
+        jScrollPane3.setViewportView(txaDescripcionHab);
+
+        jLabel21.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
+        jLabel21.setText("Precio");
+
+        jLabel22.setFont(new java.awt.Font("Nunito Sans 10pt Medium", 0, 12)); // NOI18N
+        jLabel22.setText("Configuración");
+
+        cmbConfiguracionHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Matrimonial", "Twin", "Matrimonial & Twin", "Triple Twin" }));
+
+        btnGuardarHab.setText("Guardar");
+        btnGuardarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarHabActionPerformed(evt);
+            }
+        });
+
+        btnBorrarHab.setText("Borrar");
+        btnBorrarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarHabActionPerformed(evt);
+            }
+        });
+
+        btnCancelarHab.setText("Cancelar");
+        btnCancelarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarHabActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout IngresarHabitacionLayout = new javax.swing.GroupLayout(IngresarHabitacion);
+        IngresarHabitacion.setLayout(IngresarHabitacionLayout);
+        IngresarHabitacionLayout.setHorizontalGroup(
+            IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IngresarHabitacionLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(IngresarHabitacionLayout.createSequentialGroup()
+                        .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(IngresarHabitacionLayout.createSequentialGroup()
+                                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel20))
+                                .addGap(75, 75, 75)
+                                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtPrecioHab, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNumHab, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPisoHab, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cmbCategoriaHab, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cmbConfiguracionHab, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel16))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(IngresarHabitacionLayout.createSequentialGroup()
+                        .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(IngresarHabitacionLayout.createSequentialGroup()
+                                .addComponent(btnGuardarHab)
+                                .addGap(37, 37, 37)
+                                .addComponent(btnBorrarHab)
+                                .addGap(34, 34, 34)
+                                .addComponent(btnCancelarHab))
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel17))
+                        .addGap(0, 54, Short.MAX_VALUE))))
+        );
+        IngresarHabitacionLayout.setVerticalGroup(
+            IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IngresarHabitacionLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(txtNumHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(txtPisoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(cmbCategoriaHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(cmbConfiguracionHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrecioHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addGap(28, 28, 28)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(IngresarHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarHab)
+                    .addComponent(btnBorrarHab)
+                    .addComponent(btnCancelarHab))
+                .addGap(62, 62, 62))
+        );
+
+        PanelCambiante.add(IngresarHabitacion, "card6");
+
         getContentPane().add(PanelCambiante, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//PANEL PRINCIPAL BTN PASAJERO
     private void btnPasajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasajerosActionPerformed
         java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
         cardLayout.show(PanelCambiante, "card3"); // "card3" es el identificador de VerPasajeros
@@ -430,16 +695,17 @@ public class PrincipalPanel extends javax.swing.JFrame {
         limpiarCampos();
         actualizarTablaPasajeros();
     }//GEN-LAST:event_btnGuardarPasajeroActionPerformed
-
+//btn borrar txt en ingresar pasajeros
     private void btnBorrarPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPasajeroActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_btnBorrarPasajeroActionPerformed
-
+//btn salir verPasajero
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
         cardLayout.show(PanelCambiante, "card2"); // "card2" es el identificador del panel de Inicio
     }//GEN-LAST:event_btnSalirActionPerformed
 // PANEL ADMINISTRACION PASAJERO
+    //btn ingresar pasajero
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
         cardLayout.show(PanelCambiante, "card4"); // "card4" es el identificador de Ingresar Pasajeros
@@ -473,6 +739,47 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarPasajero();
     }//GEN-LAST:event_btnEliminarActionPerformed
+//PANEL PRINCIPAL BTN HABITACION
+    private void btnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabitacionesActionPerformed
+        java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
+        cardLayout.show(PanelCambiante, "card5"); // "card5" es el identificador de VerHabitaciones
+    }//GEN-LAST:event_btnHabitacionesActionPerformed
+//PANEL PRINCIPAL BTN RESERVA
+    private void btnReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReservasActionPerformed
+//btn salir en verHabitaciones
+    private void btnSalirHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirHabActionPerformed
+        java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
+        cardLayout.show(PanelCambiante, "card2"); // "card2" es el identificador del panel de Inicio
+    }//GEN-LAST:event_btnSalirHabActionPerformed
+//btn agregarHabitacion (en panel verHabitacion) (voy a panel IngresarHab)
+    private void btnAgregarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHabActionPerformed
+        java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
+        cardLayout.show(PanelCambiante, "card6"); // "card6" es el identificador de Ingresar Hab
+    }//GEN-LAST:event_btnAgregarHabActionPerformed
+//btn borrar txt en panel ingresar hab
+    private void btnBorrarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarHabActionPerformed
+        limpiarCamposHabitacion();
+    }//GEN-LAST:event_btnBorrarHabActionPerformed
+//btn cancelar, salir del panel ingresar hab (voy a panel verHab)
+    private void btnCancelarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarHabActionPerformed
+        java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
+        cardLayout.show(PanelCambiante, "card5"); 
+    }//GEN-LAST:event_btnCancelarHabActionPerformed
+//btn guardar Habitacion, en panel Ingresar hab
+    private void btnGuardarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarHabActionPerformed
+        guardarHabitacion();
+        limpiarCamposHabitacion();
+    }//GEN-LAST:event_btnGuardarHabActionPerformed
+//btn modificar habitacion, en panel verHabitaciones
+    private void btnModificarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarHabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarHabActionPerformed
+//btn eliminar habitacion, en panel verHab
+    private void btnEliminarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarHabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarHabActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -508,27 +815,46 @@ public class PrincipalPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel IngresarHabitacion;
     private javax.swing.JPanel IngresarPasajero;
     private javax.swing.JPanel InicioSistema;
     private javax.swing.JPanel PanelCambiante;
+    private javax.swing.JPanel VerHabitaciones;
     private javax.swing.JPanel VerPasajeros;
+    private javax.swing.JButton btnAgregarHab;
+    private javax.swing.JButton btnBorrarHab;
     private javax.swing.JButton btnBorrarPasajero;
+    private javax.swing.JButton btnCancelarHab;
     private javax.swing.JButton btnCancelarPasajero;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarHab;
+    private javax.swing.JButton btnGuardarHab;
     private javax.swing.JButton btnGuardarPasajero;
     private javax.swing.JButton btnHabitaciones;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnModificarHab;
     private javax.swing.JButton btnPasajeros;
     private javax.swing.JButton btnReservas;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSalirHab;
+    private javax.swing.JComboBox<String> cmbCategoriaHab;
+    private javax.swing.JComboBox<String> cmbConfiguracionHab;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -537,22 +863,33 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel listadoPasajeros;
+    private javax.swing.JTable tablaHab;
     private javax.swing.JTable tableDatosPasajero;
     private javax.swing.JTable tablePasajeros;
+    private javax.swing.JTextArea txaDescripcionHab;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumHab;
     private javax.swing.JTextField txtPais;
+    private javax.swing.JTextField txtPisoHab;
+    private javax.swing.JTextField txtPrecioHab;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
+//pasajeros
     private void guardarPasajero() { 
         try {
             //instancia de PasajeroDaoImp
@@ -604,7 +941,9 @@ public class PrincipalPanel extends javax.swing.JFrame {
                 // obtiene el id desde la fila seleccionada
                 int selectedRow = tablePasajeros.getSelectedRow();
                 pasajeroSeleccionadoId = (int) tablePasajeros.getValueAt(selectedRow, 0);
-              
+                
+                System.out.println("El id del pasajero es: " + pasajeroSeleccionadoId);
+                
                 try {
                     //pasajero completo desde la base de datos
                     PasajeroDaoImp pasajeroD = new PasajeroDaoImp();
@@ -632,14 +971,9 @@ public class PrincipalPanel extends javax.swing.JFrame {
     }
     
     private void initTableDatos() {
-        
-        String[] columnNames = {"Id", "Nombre", "Apellido", "Documento", "Direccion", "Telefono", "Email"};
-        
-        DefaultTableModel datosModel = new DefaultTableModel(columnNames, 0);
-        
-        tableDatosPasajero.setModel(datosModel);
-           
-        
+        String[] columnNames = {"Id", "Nombre", "Apellido", "Documento", "Direccion", "Telefono", "Email"};        
+        DefaultTableModel datosModel = new DefaultTableModel(columnNames, 0);        
+        tableDatosPasajero.setModel(datosModel);           
     }
 
     private void cargarPasajeros() {
@@ -724,6 +1058,98 @@ public class PrincipalPanel extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar la tabla: " + e.getMessage());
         }
+    }
+
+//Habitciones
+    private void limpiarCamposHabitacion() {
+        txtNumHab.setText("");
+        txtPisoHab.setText("");
+        cmbCategoriaHab.setSelectedIndex(-1);
+        cmbConfiguracionHab.setSelectedIndex(-1);
+        txtPrecioHab.setText("");
+        txaDescripcionHab.setText("");
+         
+    }
+    //(btn guardar)
+    private void guardarHabitacion() {
+        try {
+            //instancia de HabitacionesDaoImp
+            HabitacionesDaoImp habitacionDao = new HabitacionesDaoImp();
+            
+            //instancia de habitaciones
+            Habitacion hab = new Habitacion();
+            
+            hab.setNumero(txtNumHab.getText());
+            hab.setPiso(txtPisoHab.getText());
+            hab.setCategoria((String) cmbCategoriaHab.getSelectedItem());
+            hab.setConfiguracion((String) cmbConfiguracionHab.getSelectedItem());
+            hab.setPrecio(Integer.parseInt(txtPrecioHab.getText()));
+            hab.setDescripcion(txaDescripcionHab.getText());
+            
+            //inserto habitacion
+            habitacionDao.insertar(hab);
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Habitación guardada correctamente.");
+            limpiarCamposHabitacion();
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar la habitación. Intente nuevamente.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    //para cargar en la tabla las habitaciones:
+    private void cargarHabitaciones(){
+        try {
+            HabitacionesDaoImp habitacionDao = new HabitacionesDaoImp();
+            List<Habitacion> habitaciones = habitacionDao.obtenerTodos();
+            
+            for (Habitacion hab : habitaciones) {
+                
+                tableModelHab.addRow(new Object[]{
+                    hab.getIdHabitacion(), 
+                    hab.getNumero(), 
+                    hab.getPiso(), 
+                    hab.getCategoria(), 
+                    hab.getConfiguracion(), 
+                    hab.getDescripcion(), 
+                    hab.getPrecio()
+                });
+            }
+            
+        } catch (Exception e) {
+        }   
+    }
+
+    private void initTableHab() {
+        String[] columnName = {"Id", "N° Hab.", "Piso", "Categoría", "Configuración", "Descripción", "Precio"};
+        tableModelHab = new DefaultTableModel(columnName, 0);
+        tablaHab.setModel(tableModelHab);
+        
+        cargarHabitaciones();
+        
+        //listener para seleccion
+        tablaHab.getSelectionModel().addListSelectionListener(event ->{
+            if (!event.getValueIsAdjusting() && tablaHab.getSelectedRow() != -1){
+                
+                //obtengo id de la fila seleccionada
+                int selectedFila = tablaHab.getSelectedRow();
+                habitacionSelectedId = (int) tablaHab.getValueAt(selectedFila, 0);
+                
+                System.out.println("Id de la habitacion seleccionada: " + habitacionSelectedId);
+                
+                try {
+                    //habitacion desde la base de datos
+                    HabitacionesDaoImp habitacionD = new HabitacionesDaoImp();
+                    Habitacion hab = habitacionD.obtenerPorId(habitacionSelectedId);
+                    System.out.println("Habitacion seleccionada: " + hab);
+                    
+                    
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Habitación no encontrada en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            
+            }
+        });
     }
     
 
