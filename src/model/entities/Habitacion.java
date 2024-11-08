@@ -21,7 +21,7 @@ public class Habitacion implements Serializable {
     private int idHabitacion;
     
     @Column(name = "numeroDeHabitacion")
-    private String numero;
+    private int numero;
     
     @Column(name = "piso")
     private String piso;
@@ -36,7 +36,7 @@ public class Habitacion implements Serializable {
     private String descripcion;
     
     @Column(name = "precio")
-    private float precio;
+    private double precio;
 
     // Relación inversa con Reservas (ManyToMany)
     @ManyToMany(mappedBy = "habitaciones")
@@ -45,7 +45,7 @@ public class Habitacion implements Serializable {
     public Habitacion() {
     }
 
-    public Habitacion(String numero, String piso, String categoria, String configuracion, String descripcion, float precio) {
+    public Habitacion(int numero, String piso, String categoria, String configuracion, String descripcion, double precio) {
         this.numero = numero;
         this.piso = piso;
         this.categoria = categoria;
@@ -62,11 +62,11 @@ public class Habitacion implements Serializable {
         this.idHabitacion = idHabitacion;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -102,11 +102,11 @@ public class Habitacion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

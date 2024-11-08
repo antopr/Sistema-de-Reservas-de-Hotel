@@ -735,7 +735,7 @@ public class PrincipalPanel extends javax.swing.JFrame {
         java.awt.CardLayout cardLayout = (java.awt.CardLayout) PanelCambiante.getLayout();
         cardLayout.show(PanelCambiante, "card5"); //  Modificar Pasajeros */
     }//GEN-LAST:event_btnModificarActionPerformed
-
+//btn eliminar en ver pasajeros
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarPasajero();
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -771,14 +771,31 @@ public class PrincipalPanel extends javax.swing.JFrame {
     private void btnGuardarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarHabActionPerformed
         guardarHabitacion();
         limpiarCamposHabitacion();
+        actualizarTablaHab();
     }//GEN-LAST:event_btnGuardarHabActionPerformed
 //btn modificar habitacion, en panel verHabitaciones
     private void btnModificarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarHabActionPerformed
-        // TODO add your handling code here:
+        int selectedRowH = tablaHab.getSelectedRow();
+        if (selectedRowH != -1) {            
+            int habitId = (int) tableModelHab.getValueAt(selectedRowH, 0); 
+            System.out.println("ID seleccionado en la tabla habitaciones: " + habitId);
+            try {
+                //habitacion completa
+                HabitacionesDaoImp habDaoM = new HabitacionesDaoImp();
+                Habitacion habitacioon = habDaoM.obtenerPorId(habitId);
+                    
+                ModificarHabDialog modificarHDialog = new ModificarHabDialog(this, habitacioon);
+                modificarHDialog.setVisible(true); 
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Selecciona una habitación para modificar.");
+            }
+            
+        }
     }//GEN-LAST:event_btnModificarHabActionPerformed
 //btn eliminar habitacion, en panel verHab
     private void btnEliminarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarHabActionPerformed
-        // TODO add your handling code here:
+        eliminarHabitacion();
     }//GEN-LAST:event_btnEliminarHabActionPerformed
 
     public static void main(String args[]) {
@@ -1079,12 +1096,12 @@ public class PrincipalPanel extends javax.swing.JFrame {
             //instancia de habitaciones
             Habitacion hab = new Habitacion();
             
-            hab.setNumero(txtNumHab.getText());
+            hab.setNumero(Integer.parseInt(txtNumHab.getText()));
             hab.setPiso(txtPisoHab.getText());
             hab.setCategoria((String) cmbCategoriaHab.getSelectedItem());
-            hab.setConfiguracion((String) cmbConfiguracionHab.getSelectedItem());
-            hab.setPrecio(Integer.parseInt(txtPrecioHab.getText()));
+            hab.setConfiguracion((String) cmbConfiguracionHab.getSelectedItem());            
             hab.setDescripcion(txaDescripcionHab.getText());
+            hab.setPrecio(Integer.parseInt(txtPrecioHab.getText()));
             
             //inserto habitacion
             habitacionDao.insertar(hab);
@@ -1150,6 +1167,51 @@ public class PrincipalPanel extends javax.swing.JFrame {
             
             }
         });
+    }
+
+    private void eliminarHabitacion() {
+        int filaSelected = tablaHab.getSelectedRow();
+        System.out.println("fila seleccionada " + filaSelected);
+        
+        int numeroHabitacion = (int) tablaHab.getValueAt(filaSelected, 1);
+        System.out.println("numero de habitacion " + numeroHabitacion);
+        
+        int confirma = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar esta habitación?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION){
+            HabitacionesDaoImp habitDao = new HabitacionesDaoImp();
+            try {
+                habitDao.eliminar(numeroHabitacion);
+                JOptionPane.showMessageDialog(this, "Habitación eliminada.");
+                //actualizar tabla
+                actualizarTablaHab();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar la habitación.");
+            }
+        }
+    }
+
+    private void actualizarTablaHab() {
+        try {
+            HabitacionesDaoImp hDao = new HabitacionesDaoImp();
+            List<Habitacion> hab = hDao.obtenerTodos();
+            
+            DefaultTableModel modeloT = (DefaultTableModel) tablaHab.getModel();
+            modeloT.setRowCount(0);
+            for (Habitacion h : hab){
+                Object[] fila = {
+                    h.getIdHabitacion(),
+                    h.getNumero(),
+                    h.getPiso(),
+                    h.getCategoria(),
+                    h.getConfiguracion(),
+                    h.getIdHabitacion(),
+                    h.getPrecio()
+                };
+                modeloT.addRow(fila);
+            }
+            
+        } catch (Exception e) {
+        }
     }
     
 

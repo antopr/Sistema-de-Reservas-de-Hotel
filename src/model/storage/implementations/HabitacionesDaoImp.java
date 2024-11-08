@@ -81,6 +81,34 @@ public class HabitacionesDaoImp implements Dao<Habitacion, Integer> {
     @Override
     public void modificar(Habitacion habitacion) throws NotFoundException {
         EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            
+            System.out.println("ID recibido para modificar en metodo modificarDao: " + habitacion.getIdHabitacion());
+            Habitacion habExistente = em.find(Habitacion.class, habitacion.getIdHabitacion());
+            //System.out.println("ID recibido para modificar: " + habitacion.getIdHabitacion());
+            
+            if(habExistente == null){
+                throw new NotFoundException("Habitación no encontrada");                
+            }
+            
+            //actualizar campitos
+            habExistente.setNumero(habitacion.getNumero());
+            habExistente.setPiso(habitacion.getPiso());
+            habExistente.setCategoria(habitacion.getCategoria());
+            habExistente.setConfiguracion(habitacion.getConfiguracion());
+            habExistente.setPrecio(habitacion.getPrecio());
+            habExistente.setDescripcion(habitacion.getDescripcion());
+            
+            em.getTransaction().commit();
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+            em.getTransaction().rollback();
+            throw new NotFoundException("Error al modificar habitación: " + e.getMessage());
+        } finally{
+            em.close();
+        }
         
         
     }
