@@ -102,6 +102,7 @@ public class Reservas extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
+        jCalendar1.setDecorationBackgroundVisible(false);
         jCalendar1.setWeekOfYearVisible(false);
 
         jCalendar2.setWeekOfYearVisible(false);

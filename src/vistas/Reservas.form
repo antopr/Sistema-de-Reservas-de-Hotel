@@ -205,6 +205,7 @@
           <SubComponents>
             <Component class="com.toedter.calendar.JCalendar" name="jCalendar1">
               <Properties>
+                <Property name="decorationBackgroundVisible" type="boolean" value="false"/>
                 <Property name="weekOfYearVisible" type="boolean" value="false"/>
               </Properties>
             </Component>
